@@ -1,0 +1,44 @@
+﻿@model List<PlaylistApp.Models.Entities.Playlist>
+
+@{
+    ViewData["Title"] = "Playlists";
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" />
+
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+        <h2>Welcome, <strong>@ViewBag.Username</strong>!</h2>
+        <div>
+            <a asp-action="Create" class="btn btn-primary me-2">+ Create New Playlist</a>
+            <a asp-controller="Auth" asp-action="Logout" class="btn btn-outline-danger">Logout</a>
+        </div>
+    </div>
+
+    <h4 class="mb-3">All Playlists</h4>
+
+    <div class="row">
+        @foreach (var playlist in Model)
+        {
+            <div class="col-md-8 mb-4">
+                <div class="card shadow-sm">
+                    <div class="card-header bg-dark text-white d-flex justify-content-between">
+                        <span class="fw-bold">@playlist.Title</span>
+                        <small class="text-light">Created by: @playlist.CreatorName</small>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            @foreach (var video in playlist.Videos)
+                            {
+                                <li class="list-group-item">
+                                    <strong>URL:</strong> <a href="@video.YouTubeUrl" target="_blank">@video.YouTubeUrl</a><br />
+                                    <small class="text-muted"><strong>Note:</strong> @video.TrackNote</small>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
